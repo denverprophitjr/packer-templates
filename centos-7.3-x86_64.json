@@ -1,0 +1,201 @@
+{
+  "variables": {
+    "vm_version": "0.0.2",
+    "vm_description": "CentOS 7.3.1611 x86_64 minimal installation, updated at {{ isotime }}",
+
+    "user": "root",
+    "password": "master",
+
+    "cpus": "1",
+    "memory": "1024",
+    "disk_size": "10240",
+
+    "iso_url": "http://mirrors.kernel.org/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
+    "iso_checksum": "71a7aa147877b413497cdff5b1e0aa5bc0c9484f",
+    "iso_checksum_type": "sha1",
+
+    "vbox_guest_iso": "http://download.virtualbox.org/virtualbox/5.0.24/VBoxGuestAdditions_5.0.24.iso",
+    "vbox_checksum":  "2d76c8812353b6c764078a6f2eabfe2cf67026d076a963f6d77493d647ad4610",
+    "vbox_checksum_type": "sha256",
+
+    "headless": "true",
+    "boot_wait": "5s",
+    "ssh_wait_timeout": "30m"
+  },
+
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "vm_name": "centos-7.3-virtualbox",
+
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "output_directory": "output_virtualbox",
+
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum`}}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+
+      "boot_wait": "{{ user `boot_wait`}}",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg net.ifnames=0 biosdevname=0<enter><wait>"
+      ],
+
+      "ssh_username": "{{ user `user` }}",
+      "ssh_password": "{{ user `password` }}",
+      "ssh_wait_timeout": "{{ user `ssh_wait_timeout` }}",
+
+      "shutdown_command": "echo '{{ user `password` }}'| sudo -S shutdown -P now",
+
+      "disk_size": "{{ user `disk_size` }}",
+      "hard_drive_interface": "sata",
+
+      "guest_os_type": "RedHat_64",
+
+      "vboxmanage": [
+        [ "modifyvm", "{{ .Name }}", "--memory", "{{  user `memory` }}" ],
+        [ "modifyvm", "{{ .Name }}", "--cpus", "{{ user `cpus`  }}" ]
+      ],
+
+      "virtualbox_version_file": ".vbox_version",
+      "export_opts": [
+        "--manifest",
+        "--vsys", "0",
+        "--description", "{{ user `vm_description` }}",
+        "--version", "{{ user `vm_version` }}"
+      ]
+    },
+
+    {
+      "type": "qemu",
+      "vm_name": "centos-7.3-libvirt",
+
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "output_directory": "output_qemu",
+
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum`}}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+
+      "boot_wait": "{{ user `boot_wait`}}",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg net.ifnames=0 biosdevname=0<enter><wait>"
+      ],
+
+      "ssh_username": "{{ user `user` }}",
+      "ssh_password": "{{ user `password` }}",
+      "ssh_wait_timeout": "{{ user `ssh_wait_timeout` }}",
+
+      "shutdown_command": "echo '{{ user `password` }}'| sudo -S shutdown -P now",
+
+      "disk_size": "{{ user `disk_size` }}",
+
+      "qemuargs": [
+        [ "-m", "{{ user `memory` }}" ],
+        [ "-smp", "{{ user `cpus` }}" ]
+      ]
+    },
+
+    {
+      "type": "vmware-iso",
+      "vm_name": "centos-7.3-vmware",
+
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "output_directory": "output_vmware",
+
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum`}}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+
+      "boot_wait": "{{ user `boot_wait`}}",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg net.ifnames=0 biosdevname=0<enter><wait>"
+      ],
+
+      "ssh_username": "{{ user `user` }}",
+      "ssh_password": "{{ user `password` }}",
+      "ssh_wait_timeout": "{{ user `ssh_wait_timeout` }}",
+
+      "shutdown_command": "/sbin/shutdown -h now",
+
+      "disk_size": "{{ user `disk_size`}}",
+
+      "guest_os_type": "centos-64",
+
+      "vmx_data": {
+        "memsize": "1024",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      }
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo '{{ user `password` }}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+      "scripts": [
+        "scripts/update.sh",
+        "scripts/vagrant.sh",
+        "scripts/virtualbox.sh",
+        "scripts/vmware.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ]
+    }
+  ],
+
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "compression_level": 9,
+      "keep_input_artifact": false,
+      "output": "boxes/centos-7.3-x86_64-{{ .Provider }}.box"
+    },
+
+    {
+      "type": "atlas",
+      "only": [ "virtualbox-iso" ],
+      "token": "{{ user `atlas_token`}}",
+      "artifact": "{{ user `atlas_artifact`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "created_at": "{{ timestamp }}",
+        "provider": "virtualbox",
+        "version": "{{ user `vm_version` }}",
+        "description": "{{ user `vm_description` }}"
+      }
+    },
+
+    {
+      "type": "atlas",
+      "only": [ "vmware-iso" ],
+      "token": "{{ user `atlas_token`}}",
+      "artifact": "{{ user `atlas_artifact`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "created_at": "{{ timestamp }}",
+        "provider": "vmware",
+        "version": "{{ user `vm_version` }}",
+        "description": "{{ user `vm_description` }}"
+      }
+    },
+
+    {
+      "type": "atlas",
+      "only": [ "qemu" ],
+      "token": "{{ user `atlas_token`}}",
+      "artifact": "{{ user `atlas_artifact`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "created_at": "{{ timestamp }}",
+        "provider": "libvirt",
+        "version": "{{ user `vm_version` }}",
+        "description": "{{ user `vm_description` }}"
+      }
+    }
+
+  ]
+}
