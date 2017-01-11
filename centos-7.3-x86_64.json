@@ -125,8 +125,8 @@
       "guest_os_type": "centos-64",
 
       "vmx_data": {
-        "memsize": "1024",
-        "numvcpus": "1",
+        "memsize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}",
         "cpuid.coresPerSocket": "1"
       }
     }
@@ -147,7 +147,7 @@
     }
   ],
 
-  "post-processors": [
+  "post-processors": [[
     {
       "type": "vagrant",
       "compression_level": 9,
@@ -197,5 +197,5 @@
       }
     }
 
-  ]
+  ]]
 }
