@@ -3,3 +3,5 @@ packer_cache/
 output_*/
 temp/
 .vagrant/
+boxes/
+vars/

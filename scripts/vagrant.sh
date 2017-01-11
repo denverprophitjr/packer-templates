@@ -15,4 +15,4 @@
 /bin/chmod 0600 /home/vagrant/.ssh/authorized_keys
 /bin/chown -R vagrant:vagrant /home/vagrant/.ssh
 
-/bin/date > /etc/vagrant_box_build_time
+/bin/date > /var/log/vagrant_box_build_time
