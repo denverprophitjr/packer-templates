@@ -25,15 +25,18 @@ To build images for all providers (QEMU, Virtualbox, VMware):
 
     $ packer build centos-7.3-x86_64.json
 
+
 To build image for only one provider use `-only` option:
 
     $ packer build -only=virtualbox-iso centos-7.3-x86_64.json
 
+
 ### Testing images
 
-You can test images created with a minimal `Vagrantfile` provided:
+After a build, you can test images created with a minimal `Vagrantfile` provided:
 
     $ vagrant up virtualbox --provider virtualbox
+
 
 ### Configuration
 
@@ -41,11 +44,31 @@ You can change details of your boxes throught user variable file:
 
     $ packer build -var-file=vars/variables.json centos-7.3-x86_64.json
 
+
+#### Variable list
+
+Name | Description | Default
+-----|-------------|--------
+`vm_version` | Version number | 0.0.2
+`vm_description` | Short description for this image | CentOS 7.3.1611 minimal installation
+`atlas_token` | Credentials for Hashicorp Atlas login |
+`atlas_artifact` | Artifact name for Hashicorp Atlas upload |
+`user` | Username for SSH connection | root
+`password` | Password for SSH connection | master
+`cpus` | Default vCPU number | 1
+`memory` | Default RAM size | 1024
+
+Don't forget to update user and password on installation file (ie.: `http/ks.cfg`).
+
+
 ## Pre-built boxes
 
 You can use the pre-built boxes hosted on Atlas:
 
-    $ vagrant box add viniciusfs/centos7
+    $ vagrant box add viniciusfs/centos7 --provider libvirt
+
+    $ vagrant box add viniciusfs/centos7 --provider virtualbox
+
 
 ## Authors
 
