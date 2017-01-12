@@ -16,7 +16,7 @@ Packer template for building CentOS 7 images.
 
 Version | Details
 --------|--------
-v1 | CentOS 7.3.1116 minimal installation
+v1 | CentOS 7.3.1116 minimal installation, VirtualBox Guest Additions 5.0.24, OpenVM Tools 10.0.5
 
 
 ## Usage
