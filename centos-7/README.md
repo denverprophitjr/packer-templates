@@ -12,11 +12,11 @@ Packer template for building CentOS 7 images.
   - [QEMU](http://qemu.org/) (if you want to build the Libvirt box)
 
 
-## Available images
+## Image versions
 
-Image | Latest version | Details
-------|----------------|--------
-[CentOS 7](centos-7/README.md) | v1 | CentOS 7.3.1116 minimal installation
+Version | Details
+--------|--------
+v1 | CentOS 7.3.1116 minimal installation
 
 
 ## Usage
@@ -25,9 +25,6 @@ Image | Latest version | Details
 
 You can use the pre-built boxes hosted on Atlas:
 
-* [CentOS 7](https://atlas.hashicorp.com/viniciusfs/boxes/centos7)
-
-
     $ vagrant box add viniciusfs/centos7 --provider libvirt
     $ vagrant box add viniciusfs/centos7 --provider virtualbox
     $ vagrant box add viniciusfs/centos7 --provider vmware_workstation
@@ -35,14 +32,14 @@ You can use the pre-built boxes hosted on Atlas:
 
 ### Building images
 
-To build images for all providers (QEMU, Virtualbox, VMware):
+To build images for all providers:
 
-    $ packer build -var-file=centos-7/versions/v1.json centos-7/template.json
+    $ packer build -var-file=versions/v1.json template.json
 
 
 To build image for only one provider use `-only` option:
 
-    $ packer build -only=virtualbox-iso -var-file=centos-7/versions/v1.json centos-7/template.json
+    $ packer build -only=virtualbox-iso -var-file=versions/v1.json template.json
 
 
 #### Testing images
@@ -74,8 +71,14 @@ Name | Description | Default
 Don't forget to update user and password on installation file (ie.: `http/ks.cfg`).
 
 
-## Other information
+## Related information
 
+* [Packer Command-line build](https://www.packer.io/docs/command-line/build.html)
+* [Packer QEMU Builder](https://www.packer.io/docs/builders/qemu.html)
+* [Packer VirtualBox Builder](https://www.packer.io/docs/builders/virtualbox-iso.html)
+* [Packer VMware Builder](https://www.packer.io/docs/builders/vmware-iso.html)
+* [Packer Vagrant Post-processor](https://www.packer.io/docs/post-processors/vagrant.html)
+* [Packer Atlas Post-processor](https://www.packer.io/docs/post-processors/atlas.html)
 * [Anaconda Kickstart Documentation](https://rhinstaller.github.io/anaconda/kickstart.html)
 * [Creating the Kickstart file](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/s1-kickstart2-file.html)
 * [Kickstart Documentation](http://pykickstart.readthedocs.io/en/latest/kickstart-docs.html)
