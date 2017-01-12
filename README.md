@@ -21,7 +21,7 @@ Image | Latest version | Details
 
 ## Authors
 
-  - Vinícius Figueiredo <viniciusfs@gmail.com>
+  - [Vinícius Figueiredo](http://ultrav.com.br) <viniciusfs@gmail.com>
 
 
 ## License

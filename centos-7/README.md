@@ -62,8 +62,8 @@ Name | Description | Default
 `user` | Username for SSH connection | root
 `password` | Password for SSH connection | master
 `cpus` | Default vCPU number | 1
-`memory` | Default RAM size | 1024
-`disk_size` | Default disk size | 10240
+`memory` | Default RAM size in MB | 1024
+`disk_size` | Default disk size in MB | 10240
 `headless` | If true, do not launch a GUI that shows the console of the machine being built | true
 `boot_wait` | The time to wait after booting the initial virtual machine | 5s
 `ssh_wait_timeout`| The time to wait until virtual machine is built, up and accepting SSH connections | 30m
@@ -87,7 +87,7 @@ Don't forget to update user and password on installation file (ie.: `http/ks.cfg
 
 ## Authors
 
-  - Vinícius Figueiredo <viniciusfs@gmail.com>
+  - [Vinícius Figueiredo](http://ultrav.com.br) <viniciusfs@gmail.com>
 
 
 ## License
