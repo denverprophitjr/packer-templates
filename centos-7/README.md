@@ -23,7 +23,7 @@ v1 | CentOS 7.3.1116 minimal installation, VirtualBox Guest Additions 5.0.24, Op
 
 ### Pre-built boxes
 
-You can use the pre-built boxes hosted on Atlas:
+You can use the [pre-built boxes](https://atlas.hashicorp.com/viniciusfs/boxes/centos7/) hosted on Atlas:
 
     $ vagrant box add viniciusfs/centos7 --provider libvirt
     $ vagrant box add viniciusfs/centos7 --provider virtualbox
