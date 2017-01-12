@@ -12,66 +12,11 @@ Packer templates for building virtual machine images.
   - [QEMU](http://qemu.org/) (if you want to build the Libvirt box)
 
 
-## Available machines
+## Available images
 
-OS | Version | Details
----|---------|--------
-CentOS | 7.3.1116 | CentOS Minimal installation, packages updated on 29th December.
-
-
-## Usage
-
-To build images for all providers (QEMU, Virtualbox, VMware):
-
-    $ packer build centos-7.3-x86_64.json
-
-
-To build image for only one provider use `-only` option:
-
-    $ packer build -only=virtualbox-iso centos-7.3-x86_64.json
-
-
-### Testing images
-
-After a build, you can test images created with a minimal `Vagrantfile` provided:
-
-    $ vagrant up virtualbox --provider virtualbox
-
-
-### Configuration
-
-You can change details of your boxes throught user variable file:
-
-    $ packer build -var-file=vars/variables.json centos-7.3-x86_64.json
-
-
-#### Variable list
-
-Name | Description | Default
------|-------------|--------
-`vm_version` | Version number |
-`vm_description` | Short description for this image |
-`atlas_token` | Credentials for Hashicorp Atlas login |
-`atlas_artifact` | Artifact name for Hashicorp Atlas upload |
-`user` | Username for SSH connection | root
-`password` | Password for SSH connection | master
-`cpus` | Default vCPU number | 1
-`memory` | Default RAM size | 1024
-`disk_size` | Default disk size | 10240
-`headless` | If true, do not launch a GUI that shows the console of the machine being built | true
-`boot_wait` | The time to wait after booting the initial virtual machine | 5s
-`ssh_wait_timeout`| The time to wait until virtual machine is built, up and accepting SSH connections | 30m
-
-Don't forget to update user and password on installation file (ie.: `http/ks.cfg`).
-
-
-## Pre-built boxes
-
-You can use the pre-built boxes hosted on Atlas:
-
-    $ vagrant box add viniciusfs/centos7 --provider libvirt
-
-    $ vagrant box add viniciusfs/centos7 --provider virtualbox
+Image | Latest version | Details
+------|----------------|--------
+[CentOS 7](centos-7/README.md) | v1 | CentOS 7.3.1116 minimal installation
 
 
 ## Authors
@@ -101,4 +46,3 @@ You can use the pre-built boxes hosted on Atlas:
     COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
     IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
     CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-

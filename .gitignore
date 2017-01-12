@@ -1,7 +1,4 @@
-*.box
 packer_cache/
-output_*/
-temp/
-.vagrant/
 boxes/
-vars/
+*-local.json
+*.box

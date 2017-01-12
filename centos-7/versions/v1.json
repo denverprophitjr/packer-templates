@@ -1,0 +1,14 @@
+{
+  "vm_version": "1",
+
+  "iso_url": "http://mirrors.kernel.org/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
+  "iso_checksum": "71a7aa147877b413497cdff5b1e0aa5bc0c9484f",
+  "iso_checksum_type": "sha1",
+
+  "vbox_guest_iso": "http://download.virtualbox.org/virtualbox/5.0.24/VBoxGuestAdditions_5.0.24.iso",
+  "vbox_checksum":  "2d76c8812353b6c764078a6f2eabfe2cf67026d076a963f6d77493d647ad4610",
+  "vbox_checksum_type": "sha256",
+
+  "atlas_token": "",
+  "atlas_artifact": ""
+}

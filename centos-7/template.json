@@ -1,6 +1,5 @@
 {
   "variables": {
-    "vm_version": "0.0.2",
     "vm_description": "CentOS 7.3.1611 x86_64 minimal installation, updated at {{ isotime }}",
 
     "user": "root",
@@ -10,14 +9,6 @@
     "memory": "1024",
     "disk_size": "10240",
 
-    "iso_url": "http://mirrors.kernel.org/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
-    "iso_checksum": "71a7aa147877b413497cdff5b1e0aa5bc0c9484f",
-    "iso_checksum_type": "sha1",
-
-    "vbox_guest_iso": "http://download.virtualbox.org/virtualbox/5.0.24/VBoxGuestAdditions_5.0.24.iso",
-    "vbox_checksum":  "2d76c8812353b6c764078a6f2eabfe2cf67026d076a963f6d77493d647ad4610",
-    "vbox_checksum_type": "sha256",
-
     "headless": "true",
     "boot_wait": "5s",
     "ssh_wait_timeout": "30m"
@@ -26,7 +17,7 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      "vm_name": "centos-7.3-virtualbox",
+      "vm_name": "centos-7-virtualbox",
 
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
@@ -68,7 +59,7 @@
 
     {
       "type": "qemu",
-      "vm_name": "centos-7.3-libvirt",
+      "vm_name": "centos-7-libvirt",
 
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
@@ -99,7 +90,7 @@
 
     {
       "type": "vmware-iso",
-      "vm_name": "centos-7.3-vmware",
+      "vm_name": "centos-7-vmware",
 
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
@@ -152,14 +143,14 @@
       "type": "vagrant",
       "compression_level": 9,
       "keep_input_artifact": false,
-      "output": "boxes/centos-7.3-x86_64-{{ .Provider }}.box"
+      "output": "boxes/centos-7-{{ .Provider }}.box"
     },
 
     {
       "type": "atlas",
       "only": [ "virtualbox-iso" ],
-      "token": "{{ user `atlas_token`}}",
-      "artifact": "{{ user `atlas_artifact`}}",
+      "token": "{{ user `atlas_token` }}",
+      "artifact": "{{ user `atlas_artifact` }}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "created_at": "{{ timestamp }}",
@@ -172,8 +163,8 @@
     {
       "type": "atlas",
       "only": [ "vmware-iso" ],
-      "token": "{{ user `atlas_token`}}",
-      "artifact": "{{ user `atlas_artifact`}}",
+      "token": "{{ user `atlas_token` }}",
+      "artifact": "{{ user `atlas_artifact` }}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "created_at": "{{ timestamp }}",
@@ -186,8 +177,8 @@
     {
       "type": "atlas",
       "only": [ "qemu" ],
-      "token": "{{ user `atlas_token`}}",
-      "artifact": "{{ user `atlas_artifact`}}",
+      "token": "{{ user `atlas_token` }}",
+      "artifact": "{{ user `atlas_artifact` }}",
       "artifact_type": "vagrant.box",
       "metadata": {
         "created_at": "{{ timestamp }}",
