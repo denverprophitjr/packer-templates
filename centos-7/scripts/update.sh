@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/bin/yum update -y
+/bin/yum update -y --exclude=kernel*
