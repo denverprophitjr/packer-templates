@@ -1,5 +1,5 @@
 {
-  "vm_version": "1",
+  "vm_version": "1.0.1",
 
   "iso_url": "http://mirrors.kernel.org/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso",
   "iso_checksum": "71a7aa147877b413497cdff5b1e0aa5bc0c9484f",
