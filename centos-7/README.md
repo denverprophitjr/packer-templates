@@ -14,10 +14,16 @@ Packer template for building CentOS 7 images.
 
 ## Image versions
 
-Version | Details
---------|--------
-v1.0.1 | CentOS 7.3.1116 minimal installation, fixed VirtualBox Guest Additions installation
-v1 | CentOS 7.3.1116 minimal installation, VirtualBox Guest Additions 5.0.24, OpenVM Tools 10.0.5
+### v1.0.1 | 2017-01-19
+
+* CentOS 7.3.1116 minimal installation
+* Fixed VirtualBox Guest Additions installation
+
+### v1
+
+* CentOS 7.3.1116 minimal installation
+* VirtualBox Guest Additions 5.0.24
+* OpenVM Tools 10.0.5
 
 
 ## Usage
@@ -95,7 +101,7 @@ Don't forget to update user and password on installation file (ie.: `http/ks.cfg
 
     The MIT License (MIT)
 
-    Copyright (c) 2016 Vinícius Figueiredo
+    Copyright (c) 2016 - 2017 Vinícius Figueiredo
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of
     this software and associated documentation files (the "Software"), to deal in
